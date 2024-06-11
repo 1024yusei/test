@@ -1,0 +1,24 @@
+const { Client, GatewayIntentBits } = require('discord.js');
+require('dotenv').config();
+
+const token = "" ; //　tokenをここへ
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
+
+// ボットが準備完了したときに実行されるコード
+client.once('ready', () => {
+    console.log('Bot is online!');
+});
+
+// メッセージが送信されたときに実行されるコード
+client.on('messageCreate', message => {
+    // ボット自身のメッセージは無視する
+    if (message.author.bot) return;
+
+    // 特定のコマンドをチェックして応答する
+    if (message.content === '!hello') {
+        message.channel.send('Hello, world!');
+    }
+});
+
+// Discordボットにログイン
+client.login(token);
